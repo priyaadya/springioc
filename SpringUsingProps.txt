@@ -1,0 +1,90 @@
+
+Address.java
+-------------------
+package com;
+
+import java.util.Properties;
+
+public class Address 
+{
+	Properties Addressprops;
+
+	public Properties getAddressprops() {
+		return Addressprops;
+	}
+
+	public void setAddressprops(Properties addressprops) {
+		Addressprops = addressprops;
+	}
+	
+	
+	
+
+}
+
+MainClass.java
+-----------------
+
+package com;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		ApplicationContext context = new ClassPathXmlApplicationContext("PropsBean.xml");
+		
+		Address address = (Address) context.getBean("myAddress");
+		System.out.println("Properties Element:"+address.getAddressprops());
+		
+	}
+
+}
+PropsBean.xml
+---------------------------
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+            <bean id="myAddress" class="com.Address">
+            <property name="Addressprops">
+            <props>
+            <prop key="1">Bangalore</prop>
+            <prop key="2">Hassan</prop>
+            <prop key="3">Mysore</prop>
+            <prop key="3">Bangalore</prop>
+            <prop key="4">Mandya</prop>
+            
+            
+            </props>
+            <!--  <props>
+            <prop key="one">Bangalore</prop>
+            <prop key="two">Hassan</prop>
+            <prop key="three">Mysore</prop>
+            <prop key="four">Bangalore</prop>
+            
+            
+            
+            </props>
+             -->
+            
+            </property>
+            
+            </bean>
+         
+    
+
+</beans>
+
+
+output
+-----------------------
+
+Properties Element:{1=Bangalore, 2=Hassan, 3=Bangalore, 4=Mandya}
