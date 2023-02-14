@@ -1,0 +1,280 @@
+
+Address.java
+------------------
+package com;
+
+import java.util.Set;
+
+public class Address 
+{
+	private Set AddressSet;
+
+	public Set getAddressSet() {
+		return AddressSet;
+	}
+
+	public void setAddressSet(Set addressSet) {
+		AddressSet = addressSet;
+	}
+	
+	
+	
+
+}
+
+
+MainClass.java
+-----------------------
+package com;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		ApplicationContext context = new ClassPathXmlApplicationContext("SetBean.xml");
+		Address address = (Address) context.getBean("myAddress");
+		System.out.println("Set elements:"+address.getAddressSet());
+		
+
+	}
+
+}
+
+SetBean.xml
+---------------------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+          <bean id="myAddress" class="com.Address">
+          <property name="AddressSet">
+          <set>
+          <value>Bangalore</value>
+          <value>Bangalore</value>
+          <value>Bangalore</value>
+          <value>Mandya</value>
+          <value>Mandya</value>
+          <value>Hassan</value>
+          <value>null</value>
+          <value>null</value>
+          
+          
+          </set>
+          
+          
+          
+          </property>
+          
+          </bean>
+       
+    
+
+</beans>
+
+output
+---------------------
+Set elements:[Bangalore, Mandya, Hassan, null]
+
+
+
+Address.java
+--------------------
+package id;
+
+import java.util.List;
+
+public class Address 
+{
+	private List AddressList;
+
+	public List getAddressList() {
+		return AddressList;
+	}
+
+	public void setAddressList(List addressList) {
+		AddressList = addressList;
+	}
+	
+	
+
+}
+MainClass.java
+---------------------
+package id;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class MainClass {
+
+	public static void main(String[] args)
+	{
+		ApplicationContext context = new ClassPathXmlApplicationContext("ListBean.xml");
+		Address address = (Address) context.getBean("myAddress");
+		System.out.println("List elements:"+address.getAddressList());
+		
+		
+		
+		
+
+	}
+
+}
+MainClass.java
+--------------------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+           <bean id="myAddress" class="id.Address">
+           <property name="AddressList">
+           <list>
+           <value>Bangalore</value>
+           <value>Bangalore</value>
+           <value>mysore</value>
+           <value>mandya</value>
+           <value>mandya</value>
+           <value>Hassan</value>
+           <value>null</value>
+           <value>null</value>
+           
+           </list>
+         
+           </property>
+           </bean>
+       
+    
+
+</beans>
+
+output
+-----------------
+
+List elements:[Bangalore, Bangalore, mysore, mandya, mandya, Hassan, null, null]
+
+
+FoodItems.java
+--------------------
+
+package SampleList;
+
+import java.util.List;
+
+public class FoodItems 
+{
+	private List foodName;
+	private List category;
+	private List cost;
+	public List getFoodName() {
+		return foodName;
+	}
+	public void setFoodName(List foodName) {
+		this.foodName = foodName;
+	}
+	public List getCategory() {
+		return category;
+	}
+	public void setCategory(List category) {
+		this.category = category;
+	}
+	public List getCost() {
+		return cost;
+	}
+	public void setCost(List cost) {
+		this.cost = cost;
+	}
+	
+	
+	
+
+}
+
+MainClass.java
+----------------------
+package SampleList;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class MainClass {
+
+	public static void main(String[] args) 
+	{
+		ApplicationContext context = new ClassPathXmlApplicationContext("FoodItemsBean.xml");
+		FoodItems f = (FoodItems) context.getBean("myfoodItems");
+		System.out.println("FoodName:"+f.getFoodName());
+		System.out.println("Category:"+f.getCategory());
+		System.out.println("cost:"+f.getCost());
+		
+		System.out.println("------------------------------");
+		
+		System.out.println(f.getCategory().get(0)+" "+f.getFoodName().get(2)+" "+f.getCost().get(4));
+		
+
+	}
+
+}
+
+FoodItemsBean.xml
+----------------------------
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+          <bean id="myfoodItems" class="SampleList.FoodItems">
+          <property name="foodName">
+          <list>
+          <value>Idli</value>
+          <value>Dose</value>
+          <value>puri</value>
+          <value>bajji</value>
+          <value>kabab</value>
+          </list>
+          </property>
+          <property name="category">
+          <list>
+          <value>veg</value>
+          <value>non-veg</value>
+          </list>
+          </property>
+          <property name="cost">
+          <list>
+          <value>100</value>
+          <value>80</value>
+          <value>60</value>
+          <value>50</value>
+          <value>45</value>
+          <value>70</value>
+          </list>
+          
+          </property>
+          </bean>
+    
+
+</beans>
+
+
+output
+-------------------
+Category:[veg, non-veg]
+cost:[100, 80, 60, 50, 45, 70]
+------------------------------
+veg puri 45
