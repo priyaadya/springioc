@@ -1,0 +1,329 @@
+Car.java
+-----------------
+package com;
+
+public class Car 
+{
+	private String Brand;
+
+	public String getBrand() {
+		return Brand;
+	}
+
+	public void setBrand(String brand) {
+		Brand = brand;
+	}
+	private String Color;
+
+	public String getColor() {
+		return Color;
+	}
+
+	public void setColor(String color) {
+		Color = color;
+	}
+
+}
+
+Vehicle.java
+-------------------
+package com;
+
+public class Vehicle 
+{
+	private String Color;
+
+	public String getColor() {
+		return Color;
+	}
+
+	public void setColor(String color) {
+		Color = color;
+	}
+	
+
+}
+MainClass.java
+-----------------
+package com;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class MainClass {
+
+	public static void main(String[] args) 
+	{
+		ApplicationContext context = new ClassPathXmlApplicationContext("VehicleBean.xml");
+		Vehicle v = (Vehicle) context.getBean("myVehicle");
+		System.out.println("Color:"+v.getColor());
+		
+		
+		Car c = (Car) context.getBean("myCar");
+		System.out.println("Brand:"+c.getBrand());
+		System.out.println("Color:"+c.getColor());
+		
+
+	}
+
+}
+
+VehicleBean.xml
+------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+           <bean id="myCar" class="com.Car" parent="myVehicle">
+           <property name="Brand" value="audi"></property>
+           </bean>
+           <bean id="myVehicle" class="com.Vehicle">
+           <property name="Color" value="White"></property>
+           </bean>
+       
+
+          
+	
+    
+
+</beans>
+
+
+output
+-----------------
+
+Color:White
+Brand:audi
+Color:White
+
+
+
+
+
+
+other example
+-----------------------
+Mobile.java
+--------------------
+
+package id;
+
+public class Mobile 
+{
+		private String Brand;
+
+		public String getBrand() {
+			return Brand;
+		}
+
+		public void setBrand(String brand) {
+			Brand = brand;
+		}
+		private String networkProvider;
+
+		public String getNetworkProvider() {
+			return networkProvider;
+		}
+
+		public void setNetworkProvider(String networkProvider) {
+			this.networkProvider = networkProvider;
+		}
+		
+		
+		
+
+
+}
+ Sim.java
+-----------------
+
+package id;
+
+public class Sim {
+	
+		private String networkProvider;
+
+		public String getNetworkProvider() {
+			return networkProvider;
+		}
+
+		public void setNetworkProvider(String networkProvider) {
+			this.networkProvider = networkProvider;
+		}
+		
+		
+		
+
+	}
+
+MainClass.java
+-------------------------
+
+package id;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class MainClass {
+	public static void main(String[] args)
+	{
+		ApplicationContext context = new ClassPathXmlApplicationContext("MobileBean.xml");
+		Mobile m = (Mobile) context.getBean("myMobile");
+		System.out.println("Brand:"+m.getBrand());
+		System.out.println("simNetworkProvider:"+m.getNetworkProvider());
+		
+		
+		Sim s = (Sim) context.getBean("mySim");
+		System.out.println("netWork:"+s.getNetworkProvider());
+	}
+		
+			
+			
+}
+
+
+MobileBean.xml
+------------------------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+           <bean id="myMobile" class="id.Mobile" parent="mySim">
+           <property name="brand" value="oppo"></property>
+           </bean>
+           
+           <bean id="mySim" class="id.Sim">
+           <property name="networkProvider" value="5G"></property>
+           </bean>
+       
+
+          
+	
+    
+
+</beans>
+
+output
+---------------------
+
+Brand:oppo
+simNetworkProvider:5G
+netWork:5G
+
+
+
+other exapme
+-------------------------
+
+Father.java
+----------------
+package Jsp;
+
+public class Father 
+{
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
+
+}
+
+Son.java
+---------------------
+package Jsp;
+
+public class Son
+{
+	private int age;
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+}
+
+MainClass.java
+--------------------
+package Jsp;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class MainClass {
+
+	public static void main(String[] args) 
+	{
+		ApplicationContext context = new ClassPathXmlApplicationContext("Bean.xml") ;
+		Father f = (Father) context.getBean("myFather");
+		System.out.println("FatherName:"+f.getName());
+		
+		
+		Son s = (Son) context.getBean("mySon");
+		System.out.println("Son Age:"+s.getAge());
+		System.out.println("son FatherName:"+s.getName());
+		
+		
+
+	}
+
+}
+
+Bean.xml
+-------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+           <bean id="myFather" class="Jsp.Father">
+           <property name="name" value="shivu"></property>
+           </bean>
+           <bean id="mySon" class="Jsp.Son" parent="myFather">
+           <property name="age" value="24"></property>
+           </bean>
+       
+
+          
+	
+    
+
+</beans>
+
+output
+----------------
+FatherName:shivu
+Son Age:24
+son FatherName:shivu
