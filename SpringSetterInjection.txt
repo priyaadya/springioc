@@ -1,0 +1,109 @@
+Mobile.java
+-----------------
+package com;
+
+public class Mobile 
+{
+		private String Brand;
+
+		public String getBrand() {
+			return Brand;
+		}
+
+		public void setBrand(String brand) {
+			Brand = brand;
+		}
+		private String networkProvider;
+
+		public String getNetworkProvider() {
+			return networkProvider;
+		}
+
+		public void setNetworkProvider(String networkProvider) {
+			this.networkProvider = networkProvider;
+		}
+		
+		
+	}
+
+Sim.java
+-----------
+
+package com;
+
+public class Sim 
+{
+	
+		private String networkProvider;
+
+		public String getNetworkProvider() {
+			return networkProvider;
+		}
+
+		public void setNetworkProvider(String networkProvider) {
+			this.networkProvider = networkProvider;
+		}
+		
+		
+
+	}
+
+MainClass.java
+----------------------
+
+package com;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class MainClass 
+{
+
+			public static void main(String[] args)
+			{
+				ApplicationContext context = new ClassPathXmlApplicationContext("MobileBean.xml");
+				Mobile m = (Mobile) context.getBean("myMobile");
+				System.out.println("Brand:"+m.getBrand());
+				System.out.println("simNetworkProvider:"+m.getNetworkProvider());
+			
+				
+				
+				
+				Sim s = (Sim) context.getBean("mySim");
+				System.out.println("network:"+s.getNetworkProvider());
+			
+			}
+
+		}
+
+
+
+MobileBean.xml
+---------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+            <bean id="myMobile" class="com.Mobile">
+            <property name="brand" value="oppo"></property>
+            <property name="s" ref="mySim"></property>
+            </bean>
+            <bean id="mySim" class="com.Sim">
+            <property name="network" value="5G"></property>
+            </bean>
+
+
+	
+    
+
+</beans>
+
+output
+-------------------
+oppo
+Airtel
+5G
