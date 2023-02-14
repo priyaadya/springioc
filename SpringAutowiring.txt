@@ -1,0 +1,237 @@
+
+
+Address.java
+
+--------------------------------
+package com;
+
+public class Address 
+{
+	private String city;
+	private String state;
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	
+	
+
+}
+
+MainClass.java
+---------------------------------------
+package com;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class MainClass {
+
+	public static void main(String[] args)
+	{
+		ApplicationContext context = new ClassPathXmlApplicationContext("AutowiringBean.xml");
+		
+		Student s = (Student) context.getBean("myStudent");
+		System.out.println(s.getName());
+		System.out.println(s.getAddress().getCity());
+		System.out.println(s.getAddress().getState());
+	}
+
+}
+
+
+Student.java
+------------------------------------
+
+package com;
+
+public class Student 
+{
+	private String name;
+	private Address address;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	
+	
+	
+
+}
+
+AutowiringBean.xml
+---------------------------------------------
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+            
+            <bean id="myStudent" class="com.Student" autowire="byType">
+            <property name="name" value="priya"></property>
+            <!--  <property name="address" ref="myAddress"></property> -->
+            </bean>
+            
+            <bean id="myAddress" class="com.Address">
+            <property name="city" value="bangalore"></property>
+            <property name="state" value="karnataka"></property>
+            
+            </bean>
+	
+    
+
+</beans>
+output
+------------------------
+priya
+bangalore
+karnataka
+
+
+
+other example in this
+-------------------------------
+
+
+Mobile.java
+-----------
+package jsp;
+
+public class Mobile 
+{
+	private String brand;
+	private Sim sim;
+	public String getBrand() {
+		return brand;
+	}
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+	public Sim getSim() {
+		return sim;
+	}
+	public void setSim(Sim sim) {
+		this.sim = sim;
+	}
+	
+	
+	
+	
+
+}
+
+Sim.java
+-------------------
+
+package jsp;
+
+public class Sim 
+{
+	private String simName;
+	private String simNetwork;
+	public String getSimName() {
+		return simName;
+	}
+	public void setSimName(String simName) {
+		this.simName = simName;
+	}
+	public String getSimNetwork() {
+		return simNetwork;
+	}
+	public void setSimNetwork(String simNetwork) {
+		this.simNetwork = simNetwork;
+	}
+	
+	
+	
+	
+
+}
+
+MainClass.java
+-----------------------
+
+package jsp;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		ApplicationContext context = new ClassPathXmlApplicationContext("MobileBeanAutowiring.xml");
+		Mobile m = (Mobile) context.getBean("myMobile");
+		System.out.println(m.getBrand());
+		System.out.println(m.getSim().getSimName());
+		System.out.println(m.getSim().getSimNetwork());
+
+	}
+
+}
+
+MobileBeanAutowiring.xml
+-------------------------
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+            
+           <!-- <bean id="myMobile" class="jsp.Mobile" autowire="byName">
+           <property name="brand" value="oppo"></property>
+           <property name="sim" ref="mySim"></property> 
+           </bean>
+            -->
+           <bean id="myMobile" class="jsp.Mobile" autowire="byType">
+           <property name="brand" value="oppo"></property>
+           <!-- <property name="sim" ref="mySim"></property> -->
+           </bean>
+           
+           <bean id="mySim" class="jsp.Sim">
+           <property name="simName" value="Airtel"></property>
+           <property name="simNetwork" value="5G"></property>
+           </bean>
+
+</beans>
+
+pom.xml
+------------------
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com</groupId>
+  <artifactId>SpringAutowiring</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+    <dependencies>
+	  <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context</artifactId>
+    <version>5.3.18</version>
+</dependency>
+
+  </dependencies>
+</project>
